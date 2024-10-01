@@ -4,8 +4,50 @@
 ---
 ## Measuring Allele Frequency Between Parent and Progeny for Visualization  
 
-To merge multiple `.bam` files into one and perform variant calling, follow these steps:
+1. **Map with `minimap2`**:
+   - Use the following `LSF` script for mapping reads with `minimap2`:
+     ```bash
+     #!/bin/bash
+     #BSUB -J minimap2
+     #BSUB -q long
+     #BSUB -o minimap5_log.txt
+     #BSUB -e minimap5_Error.txt
+     #BSUB -n 24
 
+     minimap2 -t 24 -a meph-pri.mmi P3.3-omega.fastq.gz >P3.3.sam
+     ```
+   - This maps `P3.3-omega.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
+
+2. **Convert SAM to BAM with `samtools view`**:
+   - After mapping, convert the `.sam` file to a `.bam` file using `samtools view`. Example command:
+     ```bash
+     samtools view -S -b P3.3.sam > P3.3.bam
+     ```
+   - This converts the `P3.3.sam` file to the binary `P3.3.bam` file.
+
+3. **Run `bcftools`**:
+   - Use the following `LSF` script to run `bcftools`:
+     ```bash
+     #!/bin/bash
+     #BSUB -J bcftools_JB7
+     #BSUB -q normal
+     #BSUB -o bcftools_Log-7.txt
+     #BSUB -e bcftools_Error-7.txt
+     #BSUB -n 48
+
+     /home/jbracht/bcftools-1.20/bcftools mpileup -f mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3_sorted.bam | bcftools call -mv -Ov -o P3.3.vcf
+     ```
+   - This script generates the variant calls in the VCF file `P3.3.vcf`.
+
+4. **Call Variants**:
+   - After generating the VCF file, process the variants as outlined:
+     - **Step 3**: Use `parseVCF-freq.py` or `parseVCF-freq3.py` to process the VCF file.
+     - **Step 4**: Filter SNPs using `filter-text-files.py`.
+     - **Step 5**: Compare the filtered files using `compare-text-files.py`.
+
+---
+
+This includes the relevant `LSF` scripts for mapping with `minimap2` and running `bcftools`. These can be found under files above. 
 
 
 1. **Variant Calling using `bcftools`**:
