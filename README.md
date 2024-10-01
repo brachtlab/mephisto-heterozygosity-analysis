@@ -51,18 +51,18 @@
      python parseVCF-freq2.py
      ```
 
-- **Step 4.2** **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
+- **Step 4.2**: **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
    - Run `filter-text-files.py` to ensure only SNPs are kept:
      ```bash
      python filter-text-files.py
      ```
 
- **Step 4.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
+- **Step 4.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
    - Use `compare-text-files.py` to compare filtered SNP files:
      ```bash
      python compare-text-files.py
      ```
-
+- **Step 4.4**: Using ggplot2 in R to viusalzie ""ALT-Fraction alternative variant parent vs child" figures. 
      
 # Calling-Recombinant-Reads
 
