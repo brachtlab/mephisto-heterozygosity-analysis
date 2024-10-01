@@ -2,7 +2,7 @@
 
 
 ---
-## Measuring Allele Frequency Between Parent and Progeny for Visualization  
+## Measuring Allele Frequency Between Parent and Progeny 
 
 1. **Map with `minimap2`**:
    - Use the following `LSF` script for mapping reads with `minimap2`:
