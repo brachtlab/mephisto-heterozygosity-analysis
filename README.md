@@ -41,7 +41,7 @@
 
 4. **Call Variants**:
    - After generating the VCF file, process the variants as outlined:
-     - **Step 3**: Use `parseVCF-freq.py` or `parseVCF-freq3.py` to process the VCF file.
+     - **Step 3**: Use `parseVCF-freq2.py`to process the VCF file.
      - **Step 4**: Filter SNPs using `filter-text-files.py`.
      - **Step 5**: Compare the filtered files using `compare-text-files.py`.
 
