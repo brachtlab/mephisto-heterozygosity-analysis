@@ -25,9 +25,8 @@ To merge multiple `.bam` files into one and perform variant calling, follow thes
 3. **Process VCF File**:
    - Use `parseVCF-freq.py` to process the VCF file, or use `parseVCF-freq3.py` if you want to only consider alternate reads greater than 3:
      ```bash
-     python parseVCF-freq.py
-     # or
-     python parseVCF-freq3.py
+ 
+     python parseVCF-freq2.py
      ```
 
 4. **Filter SNPs**:
