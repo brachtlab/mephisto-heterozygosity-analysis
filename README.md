@@ -41,7 +41,8 @@
 
 4. **Call Variants**:
    - After generating the VCF file, process the variants as:
-     - **Step 4.1**: **Variant Calling using `bcftools`**:Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for both the alternate and reference alleles. 
+
+    - **Step 4.1**: **Variant Calling using `bcftools`**:Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for both the alternate and reference alleles. 
    Use `parseVCF-freq2.py`to process the VCF file.
    ```bash
    bcftools mpileup --threads 20 -f ../mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3-new2.bam | bcftools call --threads 20 -mv -Ov -o P3.3-new2-calls.vcf
