@@ -40,39 +40,30 @@
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
 4. **Call Variants**:
-   - After generating the VCF file, process the variants as outlined:
-     - **Step 3**: Use `parseVCF-freq2.py`to process the VCF file.
-     - **Step 4**: Filter SNPs using `filter-text-files.py`.
-     - **Step 5**: Compare the filtered files using `compare-text-files.py`.
-
----
-
-This includes the relevant `LSF` scripts for mapping with `minimap2` and running `bcftools`. These can be found under files above. 
-
-
-1. **Variant Calling using `bcftools`**:
+   - After generating the VCF file, process the variants as:
+     - **Step 4.1**: **Variant Calling using `bcftools`**:Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for both the alternate and reference alleles. 
+   Use `parseVCF-freq2.py`to process the VCF file.
    ```bash
    bcftools mpileup --threads 20 -f ../mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3-new2.bam | bcftools call --threads 20 -mv -Ov -o P3.3-new2-calls.vcf
    ```
-
-2. **Process VCF File**:
-  -Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for both the alternate and reference alleles.
      ```bash
  
      python parseVCF-freq2.py
      ```
 
-3. **Filter SNPs**:
+- **Step 4.2** **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
    - Run `filter-text-files.py` to ensure only SNPs are kept:
      ```bash
      python filter-text-files.py
      ```
 
-4. **Compare Text Files**:
+ **Step 4.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
    - Use `compare-text-files.py` to compare filtered SNP files:
      ```bash
      python compare-text-files.py
      ```
+
+     
 # Calling-Recombinant-Reads
 
 This pipeline performs variant calling and recombination detection by mapping reads to a genome, filtering SNPs, and analyzing recombination events from forward and reverse genome alignments. Below are the steps and scripts used in the process:
