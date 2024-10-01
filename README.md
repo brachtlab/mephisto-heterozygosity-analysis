@@ -63,7 +63,7 @@
      ```bash
      python compare-text-files.py
      ```
-- **Step 4.4**: Using ggplot2 in R to viusalzie ""ALT-Fraction alternative variant parent vs child" figures. 
+- **Step 4.4**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
      
 # Calling-Recombinant-Reads
 
