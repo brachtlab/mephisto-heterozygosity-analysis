@@ -6,36 +6,27 @@
 
 To merge multiple `.bam` files into one and perform variant calling, follow these steps:
 
-1. **Merge `.bam` files using `samtools`:**
-   ```bash
-   samtools merge -o P0_merged.bam PASS/MAPPED/*.fastq/*.bam
-   ```
 
-   **Note**: If you encounter an error with too many files being open, use the following command to increase the file limit:
-   ```bash
-   ulimit -n unlimited
-   ```
-   Sometimes, this requires restarting the computer to take effect.
 
-2. **Variant Calling using `bcftools`**:
+1. **Variant Calling using `bcftools`**:
    ```bash
    bcftools mpileup --threads 20 -f ../mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3-new2.bam | bcftools call --threads 20 -mv -Ov -o P3.3-new2-calls.vcf
    ```
 
-3. **Process VCF File**:
-   -Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for alternate and refrence. 
+2. **Process VCF File**:
+  -Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for both the alternate and reference alleles.
      ```bash
  
      python parseVCF-freq2.py
      ```
 
-4. **Filter SNPs**:
+3. **Filter SNPs**:
    - Run `filter-text-files.py` to ensure only SNPs are kept:
      ```bash
      python filter-text-files.py
      ```
 
-5. **Compare Text Files**:
+4. **Compare Text Files**:
    - Use `compare-text-files.py` to compare filtered SNP files:
      ```bash
      python compare-text-files.py
