@@ -62,5 +62,47 @@ This pipeline performs variant calling and recombination detection by mapping re
 - Run `find-clusters-compare.py` to compare two cluster analyses:
   ```bash
   find-clusters-compare.py <file1> <read_cutoff_1> <file2> <read_cutoff_2>
-  ```
+  You can add these commands under a new section in your `README.md` file or another documentation file to clearly explain how to run them as part of the workflow. Here’s an example of how you can format it:
+
+### 13. Merging and Calling Variants with `samtools` and `bcftools`
+
+To merge multiple `.bam` files into one and perform variant calling, follow these steps:
+
+1. **Merge `.bam` files using `samtools`:**
+   ```bash
+   samtools merge -o P0_merged.bam PASS/MAPPED/*.fastq/*.bam
+   ```
+
+   **Note**: If you encounter an error with too many files being open, use the following command to increase the file limit:
+   ```bash
+   ulimit -n unlimited
+   ```
+   Sometimes, this requires restarting the computer to take effect.
+
+2. **Variant Calling using `bcftools`**:
+   ```bash
+   bcftools mpileup --threads 20 -f ../mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3-new2.bam | bcftools call --threads 20 -mv -Ov -o P3.3-new2-calls.vcf
+   ```
+
+3. **Process VCF File**:
+   - Use `parseVCF-freq.py` to process the VCF file, or use `parseVCF-freq3.py` if you want to only consider alternate reads greater than 3:
+     ```bash
+     python parseVCF-freq.py
+     # or
+     python parseVCF-freq3.py
+     ```
+
+4. **Filter SNPs**:
+   - Run `filter-text-files.py` to ensure only SNPs are kept:
+     ```bash
+     python filter-text-files.py
+     ```
+
+5. **Compare Text Files**:
+   - Use `compare-text-files.py` to compare filtered SNP files:
+     ```bash
+     python compare-text-files.py
+     ```
+
+
 
