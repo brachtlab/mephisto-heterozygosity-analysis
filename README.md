@@ -23,7 +23,7 @@ To merge multiple `.bam` files into one and perform variant calling, follow thes
    ```
 
 3. **Process VCF File**:
-   - Use `parseVCF-freq.py` to process the VCF file, or use `parseVCF-freq3.py` if you want to only consider alternate reads greater than 3:
+   -Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for alternate and refrence. 
      ```bash
  
      python parseVCF-freq2.py
@@ -40,7 +40,6 @@ To merge multiple `.bam` files into one and perform variant calling, follow thes
      ```bash
      python compare-text-files.py
      ```
-     ### Recombinant-reads-analyzer
 # Calling-Recombinant-Reads
 
 This pipeline performs variant calling and recombination detection by mapping reads to a genome, filtering SNPs, and analyzing recombination events from forward and reverse genome alignments. Below are the steps and scripts used in the process:
