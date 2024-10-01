@@ -1,4 +1,4 @@
-# Recombinant-reads-analyzer
+
 
 
 ---
@@ -41,6 +41,7 @@ To merge multiple `.bam` files into one and perform variant calling, follow thes
      ```bash
      python compare-text-files.py
      ```
+     ### Recombinant-reads-analyzer
 # Calling-Recombinant-Reads
 
 This pipeline performs variant calling and recombination detection by mapping reads to a genome, filtering SNPs, and analyzing recombination events from forward and reverse genome alignments. Below are the steps and scripts used in the process:
