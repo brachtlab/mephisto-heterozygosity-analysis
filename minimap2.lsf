@@ -1,0 +1,8 @@
+#!/bin/bash
+#BSUB -J minimap2
+#BSUB -q long
+#BSUB -o minimap5_log.txt
+#BSUB -e minimap5_Error.txt
+#BSUB -n 24
+
+minimap2 -t 24 -a meph-pri-rc.mmi P3.3-omega.fastq.gz >P3.3-rcomega.sam 

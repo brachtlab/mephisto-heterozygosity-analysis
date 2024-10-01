@@ -1,0 +1,8 @@
+#!/bin/bash
+#BSUB -J bcftools_JB7
+#BSUB -q normal
+#BSUB -o bcftools_Log-7.txt
+#BSUB -e bcftools_Error-7.txt
+#BSUB -n 48
+
+/home/jbracht/bcftools-1.20/bcftools mpileup -f /home/jbracht/recombination-testing/mephisto_alpha_renamed_polish.fasta_primary.fasta_reverse-complemented.fasta /home/jbracht/recombination-testing/P3.3-rcomega_sorted.bam | bcftools call -mv -Ov -o P3.3-rcomega-zorro.vcf
