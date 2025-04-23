@@ -48,21 +48,21 @@
 5. **Call Variants**:
    - After generating the VCF file, process the variants as:
 
-    - **Step 4.1**: **Variant Calling using `bcftools`**:Use parseVCF-freq2.py to process the VCF file. (Note: at least 2 reads required for calling a snp).
+    - **Step 4.1**: **Variant Calling using `bcftools`**:Use parseVCF-freq2.py to process the VCF file. (Note: at least 2 reads required for calling a snp). Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
    ```
      ./parseVCF-freq2.py P3.3.vcf
      ```
 
 - **Step 5.2**: **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
-   - Run `filter-text-files.py` to ensure only SNPs are kept:
+   - Run `filter-text-files.py` to ensure only SNPs are kept. Input is FILENAME.vcf_columns2.txt, Output is FILENAME.vcf_columns2.txt_snps_only.txt
      ```bash
-     python filter-text-files.py
+     ./filter-text-files.py P3.3.vcf_columns2.txt
      ```
 
 - **Step 5.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
-   - Use `compare-text-files.py` to compare filtered SNP files:
+   - Use `compare-text-files.py` to compare filtered SNP files. Input is FILENAME1.vcf_columns2.txt_snps_only.txt and FILENAME2.vcf_columns2.txt_snps_only.txt
      ```bash
-     python compare-text-files.py
+     ./compare-text-files.py FILENAME1.vcf_columns2.txt_snps_only.txt FILENAME2.vcf_columns2.txt_snps_only.txt
      ```
 - **Step 5.4**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
      
