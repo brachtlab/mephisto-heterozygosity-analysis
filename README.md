@@ -21,11 +21,17 @@
 2. **Convert SAM to BAM with `samtools view`**:
    - After mapping, convert the `.sam` file to a `.bam` file using `samtools view`. Example command:
      ```bash
-     samtools view -S -b P3.3.sam > P3.3.bam
+     samtools view -@ 20 -S -b P3.3.sam > P3.3.bam
      ```
    - This converts the `P3.3.sam` file to the binary `P3.3.bam` file.
+     
+3. **Sort and index BAM **:
+   ```bash
+     samtools sort -@ 20 -0 P3.3_sorted.bam P3.3.bam
+     samtolls index P3.3_sorted.bam
+     ```
 
-3. **Run `bcftools`**:
+4. **Run `bcftools`**:
    - Use the following `LSF` script to run `bcftools`:
      ```bash
      #!/bin/bash
@@ -39,7 +45,7 @@
      ```
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
-4. **Call Variants**:
+5. **Call Variants**:
    - After generating the VCF file, process the variants as:
 
     - **Step 4.1**: **Variant Calling using `bcftools`**:Use parseVCF-freq2.py to process the VCF file, requiring at least two reads for both the alternate and reference alleles. 
@@ -52,18 +58,18 @@
      python parseVCF-freq2.py
      ```
 
-- **Step 4.2**: **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
+- **Step 5.2**: **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
    - Run `filter-text-files.py` to ensure only SNPs are kept:
      ```bash
      python filter-text-files.py
      ```
 
-- **Step 4.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
+- **Step 5.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
    - Use `compare-text-files.py` to compare filtered SNP files:
      ```bash
      python compare-text-files.py
      ```
-- **Step 4.4**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
+- **Step 5.4**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
      
 # Calling-Recombinant-Reads
 
