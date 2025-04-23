@@ -25,7 +25,7 @@
      ```
    - This converts the `P3.3.sam` file to the binary `P3.3.bam` file.
      
-3. **Sort and Index the BAM file`**:
+3. **Sort and Index the BAM file**:
    ```bash
      samtools sort -@ 20 -0 P3.3_sorted.bam P3.3.bam
      samtolls index P3.3_sorted.bam
