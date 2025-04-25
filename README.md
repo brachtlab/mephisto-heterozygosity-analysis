@@ -99,7 +99,7 @@ This pipeline performs variant calling and recombination detection by mapping re
 ```bash
      ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
  ```
-The output file has 10 columns and one row per read (if the read is long enough to be scored). The recombination_flag is the key because it is set if the read is thought to be recombinant. The 'call-list' shows the category of each snp within the read (whether reference, 'ref' or alternate, 'alt'). Error-counts is the number of snps that did not match either a reference or alt basepair, yet the snp site was present in the read (based on the context search). These are presumed errors owing to the fairly high error rate of the long reads.
+The output file has 10 columns and one row per read (if the read is long enough to be scored). The recombination-flag is the key because it is set if the read is thought to be recombinant. Error-counts is the number of snps that did not match either a reference or alt basepair, yet the snp site was present in the read (based on the context search). These are presumed errors owing to the fairly high error rate of the long reads.The 'call-list' shows a list of each snp call within the read, whether reference, 'ref' or alternate, 'alt'.  
 
   
 
