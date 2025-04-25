@@ -27,7 +27,7 @@
      
 3. **Sort and Index the BAM file**:
    ```bash
-     samtools sort -@ 20 -0 P3.3_sorted.bam P3.3.bam
+     samtools sort -@ 20 -o P3.3_sorted.bam P3.3.bam
      samtolls index P3.3_sorted.bam
      ```
 
