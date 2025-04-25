@@ -4,7 +4,7 @@
 ---
 ## Measuring Allele Frequency Between Parent and Progeny 
 
-1. **Map with `minimap2`**:
+1. **Map with `minimap2 onto HAPLOID genome assembly`**:
    - Use the following `LSF` script for mapping reads with `minimap2`:
      ```bash
      #!/bin/bash
@@ -17,6 +17,7 @@
      minimap2 -t 24 -a meph-pri.mmi P3.3-omega.fastq.gz >P3.3.sam
      ```
    - This maps `P3.3-omega.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
+   - It is critical to map onto a high-quality haploid assembly. The pipeline assumes the snps relative to this assembly are the other genotype. 
 
 2. **Convert SAM to BAM with `samtools view`**:
    - After mapping, convert the `.sam` file to a `.bam` file using `samtools view`. Example command:
@@ -71,16 +72,20 @@
 This pipeline performs variant calling and recombination detection by mapping reads to a genome, filtering SNPs, and analyzing recombination events from forward and reverse genome alignments. Below are the steps and scripts used in the process:
 
 ### 1. Map Reads to Genome:
-- Map P3, P3.1, and P3.3 reads onto the genome, generating the following SAM files:
+- If you haven't already, follow step 1 above to map reads reads onto the (haploid) genome, generating the following SAM files:
   - `P3.sam`
   - `P3.1.sam`
   - `P3.3.sam`
+-Then, follow steps 2-4 above, to generate .vcf files for the next step.
 
-### 2. Generate VCF File:
-- Call P3 variants by running `parseVCF-highConfidenceSNPs.py`, ensuring at least 5 reads support both reference and alternative allele calls. This generates the P3 VCF file.
+### 2. Identify the snps in haplotype 2:
+- Call P3 variants by running `parseVCF-highConfidenceSNPs.py`, ensuring at least 5 reads support both reference and alternative allele calls. Input is FILENAME.vcf and output is FILENAME.vcf_high-conf-snps.txt.
 
 ### 3. Filter SNPs:
-- Use `filter-text-files.py` to filter the SNPs.
+- Use `filter-text-files.py` to filter the SNPs. Input is FILENAME.vcf_high-conf-snps.txt and output is FILENAME.vcf_high-conf-snps.txt_snps_only.txt
+ ```bash
+     ./filter-text-files.py P3.3.vcf_high-conf-snps.txt
+     ```
 
 ### 4. Add Genomic Context:
 - Run `add-context_fixed.py` (requires the genome file as input) to add genomic context to the SNP file.
