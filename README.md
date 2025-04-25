@@ -80,16 +80,20 @@ This pipeline performs variant calling and recombination detection by mapping re
 
 ### 2. Identify the snps in haplotype 2:
 - Call P3 variants by running `parseVCF-highConfidenceSNPs.py`, ensuring at least 5 reads support both reference and alternative allele calls. Input is FILENAME.vcf and output is FILENAME.vcf_high-conf-snps.txt.
-
+ ```bash
+     ./parseVCF-highConfidenceSNPs.py P3.3.vcf
+ ```
 ### 3. Filter SNPs:
 - Use `filter-text-files.py` to filter the SNPs. Input is FILENAME.vcf_high-conf-snps.txt and output is FILENAME.vcf_high-conf-snps.txt_snps_only.txt
  ```bash
      ./filter-text-files.py P3.3.vcf_high-conf-snps.txt
-     ```
+ ```
 
 ### 4. Add Genomic Context:
-- Run `add-context_fixed.py` (requires the genome file as input) to add genomic context to the SNP file.
-
+- Run `add-context_fixed.py` (requires the genome file as input) to add genomic context to the SNP file. Input is ILENAME.vcf_high-conf-snps.txt_snps_only.txt, output is ILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
+```bash
+     ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt
+ ```
 ### 5. Detect Forward Recombination Events:
 - Run `find-recombination.py` using the forward P3 variant calls file:  
   `P3-omega-zorro.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt`  
