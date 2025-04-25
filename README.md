@@ -90,9 +90,9 @@ This pipeline performs variant calling and recombination detection by mapping re
  ```
 
 ### 4. Add Genomic Context:
-- Run `add-context_fixed.py` (requires the genome file as input) to add genomic context to the SNP file. Input is ILENAME.vcf_high-conf-snps.txt_snps_only.txt, output is ILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
+- Run `add-context_fixed.py` to add genomic context to the SNP file. (Context is the previous 7 bp and 12 bp relative to the snp. Both are used for identifying snps within the reads using find-recombination.py.) Input is FILENAME.vcf_high-conf-snps.txt_snps_only.txt and the genome.fasta, and output is FILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
 ```bash
-     ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt
+     ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
  ```
 ### 5. Detect Forward Recombination Events:
 - Run `find-recombination.py` using the forward P3 variant calls file:  
