@@ -95,10 +95,13 @@ This pipeline performs variant calling and recombination detection by mapping re
      ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
  ```
 ### 5. Detect Forward Recombination Events:
-- Run `find-recombination.py` using the forward P3 variant calls file:  
-  `P3-omega-zorro.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt`  
-  This generates the file:  
-  `omega_reads_calls2.txt`
+- Run `find-recombination.py` which requires the SAM file (containing the reads and their mapping positions) along with the snp file (FILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt). The output is SAMFILE.sam_reads_calls2.txt.    
+```bash
+     ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
+ ```
+The output file has 10 columns and one row per read (if the read is long enough to be scored). The recombination_flag is the key because it is set if the read is thought to be recombinant. The 'call-list' shows the category of each snp within the read (whether reference, 'ref' or alternate, 'alt'). Error-counts is the number of snps that did not match either a reference or alt basepair, yet the snp site was present in the read (based on the context search). These are presumed errors owing to the fairly high error rate of the long reads.
+
+  
 
 ### 6. Reverse Complement Mapping:
 - Map P3, P3.1, and P3.3 onto the reverse complement of the genome (`rcomega`).
