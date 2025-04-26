@@ -5,7 +5,7 @@
 # 1. Measuring Allele Frequency Between Parent and Progeny 
 
 ### 1.1 **Map with `minimap2 onto HAPLOID genome assembly of haplotype 1`**:
-  - Haplotype 1 can be arbitrarily determined
+  - Haplotype 1 can be arbitrarily determined, and snps will represent the other haplotype.
    - Use the following `LSF` script for mapping reads with `minimap2`:
      ```bash
      #!/bin/bash
@@ -70,11 +70,9 @@
 
 This pipeline performs recombination detection in reads from a sam file. Below are the steps and scripts used in the process:
 
-### 2.1 Map Reads to Genome:
-- Follow step 1.1 above to map the heterozygote (parental) reads reads onto the (haplotype 1) genome, generating the following SAM file for identifying the haplotype 2 snps:
-  - `P3.sam`
-
--Then, follow steps 2-4 above, to generate .vcf files for the next step.
+### 2.1 Map Reads to Haploid Genome of Haplotype 1:
+- Follow step 1.1, 1.2, 1.3, and 1.4 above to map the heterozygote (parental) reads (in our case, P3) reads onto the (haplotype 1) genome, generating a .vcf file for identifying the haplotype 2 snps.
+ 
 
 ### 2.2 Identify the snps in haplotype 2:
 - Call P3 variants by running `parseVCF-highConfidenceSNPs.py`, ensuring at least 5 reads support both reference and alternative allele calls. Input is FILENAME.vcf and output is FILENAME.vcf_high-conf-snps.txt.
