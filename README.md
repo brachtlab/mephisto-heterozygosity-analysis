@@ -52,7 +52,7 @@
  ** step 1.5.1** : Use parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
    ```
      ./parseVCF-freq2.py P3.3.vcf
-     ```
+   ```
 
 - **Step 1.5.2**: **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
    - Run `filter-text-files.py` to ensure only SNPs are kept. Input is FILENAME.vcf_columns2.txt, Output is FILENAME.vcf_columns2.txt_snps_only.txt
