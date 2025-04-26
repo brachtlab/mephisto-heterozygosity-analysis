@@ -71,13 +71,13 @@
 This pipeline performs recombination detection in reads from a sam file. Below are the steps and scripts used in the process:
 
 ### 2.1 Map Reads to Haploid Genome of Haplotype 1:
-- Follow step 1.1, 1.2, 1.3, and 1.4 above to map the heterozygote (parental) reads (in our case, P3) reads onto the (haplotype 1) genome, generating a .vcf file for identifying the haplotype 2 snps.
+- Follow step 1.1, 1.2, 1.3, and 1.4 above to map the heterozygote (parental) reads (in our case, the reads are from parent we labeled P3, raw reads are the file P3.fastq.gz) reads onto the (haplotype 1) genome, generating a .vcf file for identifying the haplotype 2 snps. This file will be a reference for looking for identification of recombinant reads.
  
 
 ### 2.2 Identify the snps in haplotype 2:
 - Call P3 variants by running `parseVCF-highConfidenceSNPs.py`, ensuring at least 5 reads support both reference and alternative allele calls. Input is FILENAME.vcf and output is FILENAME.vcf_high-conf-snps.txt.
  ```bash
-     ./parseVCF-highConfidenceSNPs.py P3.3.vcf
+     ./parseVCF-highConfidenceSNPs.py P3.vcf
  ```
 ### 2.3 Filter SNPs:
 - Use `filter-text-files.py` to filter the SNPs. Input is FILENAME.vcf_high-conf-snps.txt and output is FILENAME.vcf_high-conf-snps.txt_snps_only.txt
