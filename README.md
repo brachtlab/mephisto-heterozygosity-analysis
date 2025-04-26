@@ -42,7 +42,7 @@
      #BSUB -e bcftools_Error-7.txt
      #BSUB -n 48
 
-     /home/jbracht/bcftools-1.20/bcftools mpileup -f mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3_sorted.bam | bcftools call -mv -Ov -o P3.3.vcf
+     bcftools mpileup -f mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3_sorted.bam | bcftools call -mv -Ov -o P3.3.vcf
  ```
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
