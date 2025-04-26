@@ -65,34 +65,34 @@
      ```
 - **Step 1.5.4**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
      
-# 2. Calling-Recombinant-Reads
+# 2. Calling Recombinant Reads
 
-This pipeline performs variant calling and recombination detection by mapping reads to a genome, filtering SNPs, and analyzing recombination events from forward and reverse genome alignments. Below are the steps and scripts used in the process:
+This pipeline performs recombination detection in reads from a sam file. Below are the steps and scripts used in the process:
 
-### 1. Map Reads to Genome:
+### 2.1 Map Reads to Genome:
 - If you haven't already, follow step 1 above to map reads reads onto the (haploid) genome, generating the following SAM files:
   - `P3.sam`
   - `P3.1.sam`
   - `P3.3.sam`
 -Then, follow steps 2-4 above, to generate .vcf files for the next step.
 
-### 2. Identify the snps in haplotype 2:
+### 2.2 Identify the snps in haplotype 2:
 - Call P3 variants by running `parseVCF-highConfidenceSNPs.py`, ensuring at least 5 reads support both reference and alternative allele calls. Input is FILENAME.vcf and output is FILENAME.vcf_high-conf-snps.txt.
  ```bash
      ./parseVCF-highConfidenceSNPs.py P3.3.vcf
  ```
-### 3. Filter SNPs:
+### 2.3 Filter SNPs:
 - Use `filter-text-files.py` to filter the SNPs. Input is FILENAME.vcf_high-conf-snps.txt and output is FILENAME.vcf_high-conf-snps.txt_snps_only.txt
  ```bash
      ./filter-text-files.py P3.3.vcf_high-conf-snps.txt
  ```
 
-### 4. Add Genomic Context:
+### 2.4 Add Genomic Context:
 - Run `add-context_fixed.py` to add genomic context to the SNP file. (Context is the previous 7 bp and 12 bp relative to the snp. Both are used for identifying snps within the reads using find-recombination.py.) Input is FILENAME.vcf_high-conf-snps.txt_snps_only.txt and the genome.fasta, and output is FILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
 ```bash
      ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
  ```
-### 5. Detect Forward Recombination Events:
+### 2.5 Detect Forward Recombination Events:
 - Run `find-recombination.py` which requires the SAM file (containing the reads and their mapping positions) along with the snp file (FILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt). The output is SAMFILE.sam_reads_calls2.txt.    
 ```bash
      ./add-context_fixed.py P3.3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
@@ -101,37 +101,37 @@ The output file has 10 columns and one row per read (if the read is long enough 
 
   
 
-### 6. Reverse Complement Mapping:
+### 2.6 Reverse Complement Mapping:
 - Map P3, P3.1, and P3.3 onto the reverse complement of the genome (`rcomega`).
 - Call P3 variants as above, filter using `filter-text-files.py`, and add context with `add-context_fixed.py` to generate:  
   `P3-rcomega-zorro.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt`
 
-### 7. Detect Reverse Complement Recombination Events:
+### 2.7 Detect Reverse Complement Recombination Events:
 - Run `rc-find-recombination.py` using the reverse complement SNPs file. This generates:  
   `rcomega_reads_calls2.txt`
 
-### 8. Reverse Complement Coordinates:
+### 2.8 Reverse Complement Coordinates:
 - Run `reverse-complement-coordinates-of-call-file.py` (requires reverse complement genome input) to convert the coordinates back to the original genome's direction. This generates:  
   `reads_calls2.txt_rc.txt`
 
-### 9. Merge Forward and Reverse Call Files:
+### 2.9 Merge Forward and Reverse Call Files:
 - Combine forward and reverse complement calls using `cat`:
   ```bash
   cat [forward, omega] [rcomega, reverse complemented] > combined-calls.txt
   ```
 
-### 10. Sorting:
+### 2.10 Sorting:
 - Open `combined-calls.txt` in Excel.
 - Sort by `contig` and `position`.
 - Save as a tab-delimited text file.
 
-### 11. Analyze Recombination Clusters:
+### 2.11 Analyze Recombination Clusters:
 - Run `find-clusters.py` to analyze the read number cutoff:
   ```bash
   find-clusters.py <read_cutoff>
   ```
 
-### 12. Compare Cluster Analyses:
+### 2.12 Compare Cluster Analyses:
 - Run `find-clusters-compare.py` to compare two cluster analyses:
   ```bash
   find-clusters-compare.py <file1> <read_cutoff_1> <file2> <read_cutoff_2>
