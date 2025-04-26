@@ -85,13 +85,14 @@ This pipeline performs recombination detection in reads from a sam file. Below a
      ./filter-text-files.py P3.vcf_high-conf-snps.txt
  ```
 
-### 2.4 Add Genomic Context:
+### 2.4 Add Genomic Context to Haplotype 2:
 - Run `add-context_fixed.py` to add genomic context to the SNP file. (Context is the previous 7 bp and 12 bp relative to the snp. Both are used for identifying snps within the reads using find-recombination.py.) Input is FILENAME.vcf_high-conf-snps.txt_snps_only.txt and the genome.fasta, and output is FILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
 ```bash
      ./add-context_fixed.py P3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
  ```
 ### 2.5 Detect Forward Recombination Events:
-- 2.5.1 Generate the SAM File. **important** The SAM file from previous must not be used. You want a sorted read set to make the script run faster. Therefore, delete the SAM file from previous and use your sorted, indexed bam file to re-generate a SAM file:
+- 2.5.1 Generate the SAM File.
+  - **important** The SAM file from previous must not be used. You want a sorted read set to make the script run faster. Therefore, delete the SAM file from previous and use your sorted, indexed bam file to re-generate a SAM file:
 ```bash
      rm P3.1.sam
      samtools view -@ 25 -o P3.1.sam P3.1_sorted.bam 
@@ -99,7 +100,7 @@ This pipeline performs recombination detection in reads from a sam file. Below a
 - 
 - 2.5.2 Run `find-recombination.py` which requires the SAM file (containing the reads and their mapping positions) along with the snp file (FILENAME.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt). The output is SAMFILE.sam_reads_calls2.txt.    
 ```bash
-     ./find-recombination.py P3.1.sam P3.vcf_high-conf-snps.txt_snps_only.txt genome.fasta
+     ./find-recombination.py P3.1.sam P3.vcf_high-conf-snps.txt_snps_only.txtcontextFIXED.txt 
  ```
 The output file has 10 columns and one row per read (if the read is long enough to be scored). The recombination-flag is the key because it is set if the read is thought to be recombinant. Error-counts is the number of snps that did not match either a reference or alt basepair, yet the snp site was present in the read (based on the context search). These are presumed errors owing to the fairly high error rate of the long reads.The 'call-list' shows a list of each snp call within the read, whether reference, 'ref' or alternate, 'alt'.  
 
