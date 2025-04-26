@@ -14,7 +14,7 @@
      #BSUB -e minimap5_Error.txt
      #BSUB -n 24
 
-     minimap2 -t 24 -a meph-pri.mmi P3.3-omega.fastq.gz >P3.3.sam
+     minimap2 -t 24 -a meph-pri.mmi P3.3.fastq.gz >P3.3.sam
      ```
    - This maps `P3.3-omega.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
    - It is critical to map onto a high-quality haploid assembly. The pipeline assumes the snps relative to this assembly are the other genotype. 
@@ -102,7 +102,12 @@ The output file has 10 columns and one row per read (if the read is long enough 
   
 
 ### 2.6 Reverse Complement Mapping:
-- Map P3, P3.1, and P3.3 onto the reverse complement of the genome (`rcomega`).
+-Reverse complement the genome with python script 'reverse_complement.py'. Input is genome.fasta, output is genome.fasta_reverse_complement.fasta:
+```bash
+     ./reverse_complement.py genome.fasta
+ ```
+
+- Map each read file (in this case, P3.fastq.gz, P3.1.fastq.gz, and P3.3.fastq.gz) onto the reverse complement of the genome following step 2.1.
 - Call P3 variants as above, filter using `filter-text-files.py`, and add context with `add-context_fixed.py` to generate:  
   `P3-rcomega-zorro.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt`
 
