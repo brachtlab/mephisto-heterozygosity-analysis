@@ -4,7 +4,7 @@
 ---
 # 1. Measuring Allele Frequency Between Parent and Progeny 
 
-## 1.1 **Map with `minimap2 onto HAPLOID genome assembly`**:
+### 1.1 **Map with `minimap2 onto HAPLOID genome assembly`**:
    - Use the following `LSF` script for mapping reads with `minimap2`:
      ```bash
      #!/bin/bash
@@ -19,20 +19,20 @@
    - This maps `P3.3-omega.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
    - It is critical to map onto a high-quality haploid assembly. The pipeline assumes the snps relative to this assembly are the other genotype. 
 
-## 1.2 **Convert SAM to BAM with `samtools view`**:
+### 1.2 **Convert SAM to BAM with `samtools view`**:
    - After mapping, convert the `.sam` file to a `.bam` file using `samtools view`. Example command:
      ```bash
      samtools view -@ 20 -S -b P3.3.sam > P3.3.bam
      ```
    - This converts the `P3.3.sam` file to the binary `P3.3.bam` file.
      
-## 1.3 **Sort and Index the BAM file**:
+### 1.3 **Sort and Index the BAM file**:
    ```bash
      samtools sort -@ 20 -o P3.3_sorted.bam P3.3.bam
      samtolls index P3.3_sorted.bam
    ```
 
-## 1.4 **Run bcftools to call variants**:
+### 1.4 **Run bcftools to call variants**:
    - Use the following `LSF` script to run `bcftools`:
 ```bash
      #!/bin/bash
@@ -46,7 +46,7 @@
  ```
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
-## 1.5 **Call Variants**:
+### 1.5 **Call Variants**:
 - **step 1.5.1** : Use parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
    ```
      ./parseVCF-freq2.py P3.3.vcf
