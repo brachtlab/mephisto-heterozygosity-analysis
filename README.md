@@ -30,11 +30,11 @@
    ```bash
      samtools sort -@ 20 -o P3.3_sorted.bam P3.3.bam
      samtolls index P3.3_sorted.bam
-     ```
+   ```
 
 1.4 **Run `bcftools`**:
    - Use the following `LSF` script to run `bcftools`:
-     ```bash
+```bash
      #!/bin/bash
      #BSUB -J bcftools_JB7
      #BSUB -q normal
@@ -43,12 +43,11 @@
      #BSUB -n 48
 
      /home/jbracht/bcftools-1.20/bcftools mpileup -f mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3_sorted.bam | bcftools call -mv -Ov -o P3.3.vcf
-     ```
+ ```
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
 1.5 **Call Variants**:
    - After generating the VCF file, process the variants:
-
 
  ** step 1.5.1** : Use parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
    ```
