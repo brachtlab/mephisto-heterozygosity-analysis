@@ -2,9 +2,9 @@
 
 
 ---
-## Measuring Allele Frequency Between Parent and Progeny 
+## 1. Measuring Allele Frequency Between Parent and Progeny 
 
-1. **Map with `minimap2 onto HAPLOID genome assembly`**:
+1.1 **Map with `minimap2 onto HAPLOID genome assembly`**:
    - Use the following `LSF` script for mapping reads with `minimap2`:
      ```bash
      #!/bin/bash
@@ -19,20 +19,20 @@
    - This maps `P3.3-omega.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
    - It is critical to map onto a high-quality haploid assembly. The pipeline assumes the snps relative to this assembly are the other genotype. 
 
-2. **Convert SAM to BAM with `samtools view`**:
+1.2 **Convert SAM to BAM with `samtools view`**:
    - After mapping, convert the `.sam` file to a `.bam` file using `samtools view`. Example command:
      ```bash
      samtools view -@ 20 -S -b P3.3.sam > P3.3.bam
      ```
    - This converts the `P3.3.sam` file to the binary `P3.3.bam` file.
      
-3. **Sort and Index the BAM file**:
+1.3 **Sort and Index the BAM file**:
    ```bash
      samtools sort -@ 20 -o P3.3_sorted.bam P3.3.bam
      samtolls index P3.3_sorted.bam
      ```
 
-4. **Run `bcftools`**:
+1.4 **Run `bcftools`**:
    - Use the following `LSF` script to run `bcftools`:
      ```bash
      #!/bin/bash
@@ -46,26 +46,27 @@
      ```
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
-5. **Call Variants**:
-   - After generating the VCF file, process the variants as:
+1.5 **Call Variants**:
+   - After generating the VCF file, process the variants:
 
-    - **Step 4.1**: **Variant Calling using `bcftools`**:Use parseVCF-freq2.py to process the VCF file. (Note: at least 2 reads required for calling a snp). Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
+
+ ** step 1.5.1** : Use parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
    ```
      ./parseVCF-freq2.py P3.3.vcf
      ```
 
-- **Step 5.2**: **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
+- **Step 1.5.2**: **Filter SNPs**: Filter SNPs using `filter-text-files.py`.
    - Run `filter-text-files.py` to ensure only SNPs are kept. Input is FILENAME.vcf_columns2.txt, Output is FILENAME.vcf_columns2.txt_snps_only.txt
      ```bash
      ./filter-text-files.py P3.3.vcf_columns2.txt
      ```
 
-- **Step 5.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
+- **Step 1.5.3**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
    - Use `compare-text-files.py` to compare filtered SNP files. Input is FILENAME1.vcf_columns2.txt_snps_only.txt and FILENAME2.vcf_columns2.txt_snps_only.txt
      ```bash
      ./compare-text-files.py FILENAME1.vcf_columns2.txt_snps_only.txt FILENAME2.vcf_columns2.txt_snps_only.txt
      ```
-- **Step 5.4**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
+- **Step 1.5.4**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
      
 # Calling-Recombinant-Reads
 
