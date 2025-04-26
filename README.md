@@ -113,14 +113,14 @@ The output file has 10 columns and one row per read (if the read is long enough 
      ./reverse_complement.py genome.fasta
  ```
 ### 2.7 Map Parental Reads to Reverse Complement Genome to identify reverse complement snps in Haplotype 2
-- Map parental read file (in this case, P3.fastq.gz,) onto the reverse complement of the genome, convert to vcf, then to text file, and add context following steps 2.1, 2.2, 2.3, and 2.4. **Important** when mapping use a prefix like 'rc_P3.sam' as the output to track that this is the reverse complement. You will end up with a file like `rc_P3.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt`
+- Map parental read file (in this case, P3.fastq.gz,) onto the reverse complement of the genome, convert to vcf, then to text file, and add context following steps 2.1, 2.2, 2.3, and 2.4. **Important** when mapping use a prefix like 'rc_P3.sam' as the output to track that this is the reverse complement. You will end up with a file like `rc_P3.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt` which will be used as input in the next step.
 
 ### 2.7 Detect Reverse Complement Recombination Events:
 - Run `rc-find-recombination.py` using the reverse complement SNPs file. **Important** the only difference between find-recombination.py and rc-find-recombination.py is that rc-find-recombination.py saves the position of the 3' end of the read in the calls2.txt file so that when the overal coordinates are reversed (in step 2.8) they will be correctly combined with the forward mapping file.
 -  This generates:  
   `rc_reads_calls2.txt`
   ```bash
-     ./rc-find-recombination.py P3.1.sam P3-rc.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
+     ./rc-find-recombination.py P3.1.sam rc_P3.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
  ```
 - generating rc_reads_calls2.txt file.
 
