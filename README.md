@@ -107,18 +107,22 @@ The output file has 10 columns and one row per read (if the read is long enough 
   
 
 ### 2.6 Reverse Complement Mapping:
--Reverse complement the genome with python script 'reverse_complement.py'. Input is genome.fasta, output is genome.fasta_reverse_complement.fasta:
+-The previous steps only check for recombinant reads in the forward direction. To complete the analysis, map onto the reverse complemented genome (of haplotype 1), then call snps and then combine all calls together (steps 2.6-2.10).
+-First, reverse complement the genome with python script 'reverse_complement.py'. Input is genome.fasta, output is genome.fasta_reverse_complement.fasta:
 ```bash
      ./reverse_complement.py genome.fasta
  ```
-### 2.7 Map Reads to Reverse Complement Genome
-- Map each read file (in this case, P3.fastq.gz, P3.1.fastq.gz, and P3.3.fastq.gz) onto the reverse complement of the genome following step 2.1.
-- Call P3 variants as above, filter using `filter-text-files.py`, and add context with `add-context_fixed.py` to generate:  
-  `P3-rcomega-zorro.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt`
+### 2.7 Map Parental Reads to Reverse Complement Genome to identify reverse complement snps in Haplotype 2
+- Map parental read file (in this case, P3.fastq.gz,) onto the reverse complement of the genome, convert to vcf, then to text file, and add context following steps 2.1, 2.2, 2.3, and 2.4. **Important** when mapping use a prefix like 'rc_P3.sam' as the output to track that this is the reverse complement. You will end up with a file like `rc_P3.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt`
 
 ### 2.7 Detect Reverse Complement Recombination Events:
-- Run `rc-find-recombination.py` using the reverse complement SNPs file. This generates:  
-  `rcomega_reads_calls2.txt`
+- Run `rc-find-recombination.py` using the reverse complement SNPs file. **Important** the only difference between find-recombination.py and rc-find-recombination.py is that rc-find-recombination.py saves the position of the 3' end of the read in the calls2.txt file so that when the overal coordinates are reversed (in step 2.8) they will be correctly combined with the forward mapping file.
+-  This generates:  
+  `rc_reads_calls2.txt`
+  ```bash
+     ./rc-find-recombination.py P3.1.sam P3-rc.vcf_high-conf-snps.txt_snps_only.txt_contextFIXED.txt
+ ```
+- generating rc_reads_calls2.txt file.
 
 ### 2.8 Reverse Complement Coordinates:
 - Run `reverse-complement-coordinates-of-call-file.py` (requires reverse complement genome input) to convert the coordinates back to the original genome's direction. This generates:  
