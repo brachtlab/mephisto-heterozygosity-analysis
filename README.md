@@ -32,7 +32,7 @@
      samtolls index P3.3_sorted.bam
    ```
 
-1.4 **Run `bcftools`**:
+1.4 **Run bcftools to call variants**:
    - Use the following `LSF` script to run `bcftools`:
 ```bash
      #!/bin/bash
@@ -47,9 +47,7 @@
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
 1.5 **Call Variants**:
-   - After generating the VCF file, process the variants:
-
- ** step 1.5.1** : Use parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
+ ***step 1.5.1** : Use parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
    ```
      ./parseVCF-freq2.py P3.3.vcf
    ```
