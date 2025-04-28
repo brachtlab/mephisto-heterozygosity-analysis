@@ -127,13 +127,13 @@ The output file has 10 columns and one row per read (if the read is long enough 
 ### 2.8 Reverse Complement Coordinates:
 - Run `reverse-complement-coordinates-of-call-file.py` (requires reverse complement genome input) to convert the coordinates back to the original genome's direction. This generates:  
   `rc_reads_calls2.txt_rc.txt` which now can be combined with the forward read calls (it has the positions of the reads correctly marked).
-  ```bash
+```bash
      ./recombination-omega/reverse-complement-coordinates-of-call-file.py rcP3.1.sam_reads_calls2.txt reverse_complement_genome.fasta
  ```
 
 ### 2.9 Merge Forward and Reverse Call Files:
 - Combine forward and reverse complement calls using `cat`:
-  ```bash
+```bash
   cat P3.1sam_reads_calls2.txt rcP3.sam_reads_calls.txt_rc.txt > P3.1-combined-calls.txt
   ```
 
