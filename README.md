@@ -140,19 +140,20 @@ The output file has 10 columns and one row per read (if the read is long enough 
 ### 2.10 Sorting:
 - Open `combined-calls.txt` in Excel.
 - Sort by `contig` and `position`.
-- Save as a tab-delimited text file.
+- Save as a tab-delimited text file. You can overwrite the old file name so it doesn't create yet another file. 
 
-### 2.11 Analyze Recombination Clusters:
-- Run `find-clusters.py` to analyze the read number cutoff:
+### 2.11 Add read lengths to the file:
+- Run `add-read-lengths.py`: Input is the sorted combined-calls.txt, output is combined-calls.txt_added-lengths.txt
   ```bash
-  find-clusters.py <read_cutoff>
+  ./add-read-lengths.py P3.1-combined-calls.txt
   ```
 
 ### 2.12 Compare Cluster Analyses:
-- Run `find-clusters-compare.py` to compare two cluster analyses:
+- Run `find-clusters-compare.py` to compare two cluster analyses. Each filename is followed by the number of reads that constitute a cluster. The example below is for a 10-read threshold. 
   ```bash
-  find-clusters-compare.py <file1> <read_cutoff_1> <file2> <read_cutoff_2>
-  You can add these commands under a new section in your `README.md` file or another documentation file to clearly explain how to run them as part of the workflow. Here’s an example of how you can format it:
+  find-clusters-compare.py P3-combined-calls.txt_added-lengths 10 P3.1-combined-calls.txt_added-lengths 10
+  ```
+  
 
 
 
