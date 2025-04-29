@@ -151,7 +151,7 @@ The output file has 10 columns and one row per read (if the read is long enough 
 ### 2.12 Compare Cluster Analyses:
 - Run `find-clusters-compare.py` to compare two cluster analyses. Each filename is followed by the number of reads that constitute a cluster. The example below is for a 10-read threshold. 
   ```bash
-  find-clusters-compare.py P3-combined-calls.txt_added-lengths 10 P3.1-combined-calls.txt_added-lengths 10
+  find-clusters-compare.py P3-combined-calls.txt_added-lengths.txt 10 P3.1-combined-calls.txt_added-lengths.txt 10
   ```
   
 
