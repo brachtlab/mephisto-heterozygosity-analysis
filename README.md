@@ -143,9 +143,9 @@ The output file has 10 columns and one row per read (if the read is long enough 
 - Save as a tab-delimited text file. You can overwrite the old file name so it doesn't create yet another file. 
 
 ### 2.11 Add read lengths to the file:
-- Run `add-read-lengths.py`: Input is the sorted combined-calls.txt, output is combined-calls.txt_added-lengths.txt
+- Run `add-read-lengths.py`: Input is the samfile plus sorted combined-calls.txt, output is combined-calls.txt_added-lengths.txt
   ```bash
-  ./add-read-lengths.py P3.1-combined-calls.txt
+  ./add-read-lengths.py P3.1.sam P3.1-combined-calls.txt
   ```
 
 ### 2.12 Compare Cluster Analyses:
