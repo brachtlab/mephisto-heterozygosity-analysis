@@ -151,7 +151,7 @@ The output file has 10 columns and one row per read (if the read is long enough 
 - Run `to-BED.py`: Input is the combined-calls.txt_added-lengths.txt, output is combined-calls.txt_added-lengths.txt_recombinant.bed.
   ```bash
   ./to-BED.py P3.1-combined-calls.txt_added-lengths.txt
- ```
+  ```
 ### 2.13 Compare Cluster Analyses:
 - Run `find-clusters-compare.py` to compare two cluster analyses. Each filename is followed by the number of reads that constitute a cluster. The example below is for a 10-read threshold. 
   ```bash
