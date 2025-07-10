@@ -2,7 +2,7 @@
 
 
 ---
-# 1. Measuring Allele Frequency Between Parent and Progeny 
+# 1. Measuring LOH as alternate allele frequency 
 
 ### 1.1 **Map with `minimap2 onto HAPLOID genome assembly of haplotype 1`**:
   - Haplotype 1 can be arbitrarily determined, and snps will represent the other haplotype.
