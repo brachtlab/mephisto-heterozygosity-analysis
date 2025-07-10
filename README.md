@@ -58,17 +58,23 @@
      ```bash
      ./filter-text-files.py P3.3.vcf_columns2.txt
      ```
+### 1.6 **Plot using KaroploteR package**:
+- **Step 1.6.1**: **get LOH regions**: Use get-LOH.py to process the FILENAME.vcf_columns2.txt file into FILENAME.vcf_columns2.txt_LOH.txt
+   ```
+     ./get-LOH.py P3.3.vcf_columns2.txt_snps_only.txt
+   ```
 
-- **Step 1.5.3**: **Plot using KaryoploteR packages**: 
+- **Step 1.6.2**: **Plot using KaryoploteR packages**:
 
 The text file FILENAME.vcf_columns2.txt_snps_only.txt is the input for plotting karyotypes. Follow the tutorial given at: https://bernatgel.github.io/karyoploter_tutorial/. Plot using kpPoints() command and contig, position, and alternative allele frequency data (columns 1, 2, and 7). 
 
-- **Step 1.5.4**: **Plot Scatterplots, part 1**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
+### 1.7 **Plot using Scaptterplot method**:
+- **Step 1.7.1**: **Plot Scatterplots, part 1**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
    - Use `compare-text-files.py` to compare filtered SNP files. Input is FILENAME1.vcf_columns2.txt_snps_only.txt and FILENAME2.vcf_columns2.txt_snps_only.txt
      ```bash
      ./compare-text-files.py FILENAME1.vcf_columns2.txt_snps_only.txt FILENAME2.vcf_columns2.txt_snps_only.txt
      ```
-- **Step 1.5.5**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures.
+- **Step 1.7.2**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures, using hexbin plots
 
 
   
