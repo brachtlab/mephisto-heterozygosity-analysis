@@ -66,7 +66,7 @@
 
 - **Step 1.6.2**: **Plot using KaryoploteR packages**:
 
-The text file FILENAME.vcf_columns2.txt_snps_only.txt is the input for plotting karyotypes. Follow the tutorial given at: https://bernatgel.github.io/karyoploter_tutorial/. Plot using kpPoints() command and contig, position, and alternative allele frequency data (columns 1, 2, and 7). 
+The text file FILENAME.vcf_columns2.txt_snps_only.txt is the input for plotting karyotypes. Follow the tutorial given at: https://bernatgel.github.io/karyoploter_tutorial/. Plot using kpPoints() command and contig, position, and alternative allele frequency data (columns 1, 2, and 7). For Rmarkdown, please go here: http://htmlpreview.github.io/?https://github.com/brachtlab/KaroploteR-heterozygosity/blob/main/Karyoplots-F1-A1.html
 
 ### 1.7 **Plot using Scaptterplot method**:
 - **Step 1.7.1**: **Plot Scatterplots, part 1**: Compare the filtered files using `compare-text-files.py` **Compare Text Files**:
