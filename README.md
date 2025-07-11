@@ -6,18 +6,18 @@
 
 ### 1.1 **Map with `minimap2 onto HAPLOID genome assembly of haplotype 1`**:
   - Haplotype 1 can be arbitrarily determined, and snps will represent the other haplotype.
-   - Use the following `LSF` script for mapping reads with `minimap2`:
+   - Use the following `LSF` script for mapping reads with `minimap2`: (LSF stands for Load-Sharing Facility and is the job scheduler for our High-Performance Cluster, HPC). 
      ```bash
      #!/bin/bash
      #BSUB -J minimap2
-     #BSUB -q long
-     #BSUB -o minimap5_log.txt
-     #BSUB -e minimap5_Error.txt
+     #BSUB -q normal
+     #BSUB -o minimap_log.txt
+     #BSUB -e minimap_Error.txt
      #BSUB -n 24
 
      minimap2 -t 24 -a meph-pri.mmi P3.3.fastq.gz >P3.3.sam
      ```
-   - This maps `P3.3-omega.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
+   - This maps `P3.3.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
    - It is critical to map onto a high-quality haploid assembly. The pipeline assumes the snps relative to this assembly are another haplotype. 
 
 ### 1.2 **Convert SAM to BAM with `samtools view`**:
@@ -33,22 +33,26 @@
      samtolls index P3.3_sorted.bam
    ```
 
-### 1.4 **Run bcftools to call variants**:
-   - Use the following `LSF` script to run `bcftools`:
+### 1.4 **Run bcftools to call variants on the HPC**:
+   - Use the following `LSF` script to run `bcftools` (LSF stands for Load-Sharing Facility and is the job scheduler for our High-Performance Cluster, HPC). 
 ```bash
      #!/bin/bash
-     #BSUB -J bcftools_JB7
+     #BSUB -J bcftools
      #BSUB -q normal
-     #BSUB -o bcftools_Log-7.txt
-     #BSUB -e bcftools_Error-7.txt
+     #BSUB -o bcftools_Log.txt
+     #BSUB -e bcftools_Error.txt
      #BSUB -n 48
 
      bcftools mpileup -f mephisto_alpha_renamed_polish.fasta_primary.fasta P3.3_sorted.bam | bcftools call -mv -Ov -o P3.3.vcf
  ```
+   - submit this file on the HPC's LSF sytem using the bsub command:
+     ```bash
+        bsub<bcftools.lsf
+      ```
    - This script generates the variant calls in the VCF file `P3.3.vcf`.
 
 ### 1.5 **Convert vcf file to tab-delimited snp-only file for plotting**:
-- **step 1.5.1** : Use parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
+- **step 1.5.1** : Use the Python script parseVCF-freq2.py to process the VCF file into a tab-delimited text file. Input is FILENAME.vcf, Output is FILENAME.vcf_columns2.txt
    ```
      ./parseVCF-freq2.py P3.3.vcf
    ```
