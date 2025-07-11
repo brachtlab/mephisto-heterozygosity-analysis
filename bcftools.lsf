@@ -1,0 +1,8 @@
+#!/bin/bash
+#BSUB -J bcftools
+#BSUB -q normal
+#BSUB -o bcftools_Log.txt
+#BSUB -e bcftools_Error.txt
+#BSUB -n 48
+
+bcftools mpileup -f /home/jbracht/recombination-testing/mephisto_alpha_renamed_polish.fasta_primary.fasta /home/jbracht/recombination-testing/P3.3_sorted.bam | bcftools call -mv -Ov -o P3.3.vcf
