@@ -2,7 +2,7 @@
 
 
 ---
-# 1. Measuring LOH as alternate allele frequency 
+# 1. Measuring LOH as alternative allele frequency 
 
 ### 1.1 **Map with `minimap2 onto HAPLOID genome assembly of haplotype 1`**:
   - Haplotype 1 can be arbitrarily determined, and snps will represent the other haplotype.
@@ -18,7 +18,7 @@
      minimap2 -t 24 -a meph-pri.mmi P3.3.fastq.gz >P3.3.sam
      ```
    - This maps `P3.3-omega.fastq.gz` onto the `meph-pri.mmi` reference and outputs the SAM file `P3.3.sam`.
-   - It is critical to map onto a high-quality haploid assembly. The pipeline assumes the snps relative to this assembly are the other genotype. 
+   - It is critical to map onto a high-quality haploid assembly. The pipeline assumes the snps relative to this assembly are another haplotype. 
 
 ### 1.2 **Convert SAM to BAM with `samtools view`**:
    - After mapping, convert the `.sam` file to a `.bam` file using `samtools view`. Example command:
@@ -74,7 +74,7 @@ The text file FILENAME.vcf_columns2.txt_snps_only.txt is the input for plotting 
      ```bash
      ./compare-text-files.py FILENAME1.vcf_columns2.txt_snps_only.txt FILENAME2.vcf_columns2.txt_snps_only.txt
      ```
-- **Step 1.7.2**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures, using hexbin plots
+- **Step 1.7.2**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures, using hexbin plots. Follow the hexbin tutorial: https://r-graph-gallery.com/100-high-density-scatterplot-with-binning.html
 
 
   
