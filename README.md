@@ -82,24 +82,24 @@ The text file FILENAME.vcf_columns2.txt_snps_only.txt is the input for plotting 
 
   ```
   a3p <- ggplot(a3   , aes(x = V7, y = V17)) +
-  geom_hex(bins = 43) + # Increased the number of bins for smaller hexagons
-  scale_fill_continuous(type = "viridis") + # Use a continuous color scale
-  theme_minimal(base_size = 15) +
-  labs(
-    title = "Fraction alternative variant parent vs child",
-    x = "Parent (F1)",
-    y = "Child (A3)",
-    fill = "Count"
-  ) +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
-    axis.title = element_text(size = 20, face = "bold"),
-    axis.text = element_text(size = 20, face = "bold"),
-    panel.grid.major = element_line(color = "grey80"),
-    panel.grid.minor = element_line(color = "grey90"),
-    panel.background = element_rect(fill = "white")
-  ) +
-  coord_fixed(ratio = 1)
+   geom_hex(bins = 43) + # Increased the number of bins for smaller hexagons
+   scale_fill_continuous(type = "viridis") + # Use a continuous color scale
+   theme_minimal(base_size = 15) +
+   labs(
+     title = "Fraction alternative variant parent vs child",
+     x = "Parent (F1)",
+     y = "Child (A3)",
+     fill = "Count"
+   ) +
+   theme(
+     plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+     axis.title = element_text(size = 20, face = "bold"),
+     axis.text = element_text(size = 20, face = "bold"),
+     panel.grid.major = element_line(color = "grey80"),
+     panel.grid.minor = element_line(color = "grey90"),
+     panel.background = element_rect(fill = "white")
+   ) +
+   coord_fixed(ratio = 1)
   ```
 
   
