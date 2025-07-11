@@ -2,7 +2,7 @@
 
 
 ---
-# 1. Measuring LOH as alternative allele frequency 
+# 1. Measuring heterozygosity as alternative allele frequency 
 
 ### 1.1 **Map with `minimap2 onto HAPLOID genome assembly of haplotype 1`**:
   - Haplotype 1 can be arbitrarily determined, and snps will represent the other haplotype.
@@ -78,8 +78,29 @@ The text file FILENAME.vcf_columns2.txt_snps_only.txt is the input for plotting 
      ```bash
      ./compare-text-files.py FILENAME1.vcf_columns2.txt_snps_only.txt FILENAME2.vcf_columns2.txt_snps_only.txt
      ```
-- **Step 1.7.2**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures, using hexbin plots. Follow the hexbin tutorial: https://r-graph-gallery.com/100-high-density-scatterplot-with-binning.html
+- **Step 1.7.2**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures, using the geom_hex() command within ggplot2.
 
+  ```
+  a3p <- ggplot(a3   , aes(x = V7, y = V17)) +
+  geom_hex(bins = 43) + # Increased the number of bins for smaller hexagons
+  scale_fill_continuous(type = "viridis") + # Use a continuous color scale
+  theme_minimal(base_size = 15) +
+  labs(
+    title = "Fraction alternative variant parent vs child",
+    x = "Parent (F1)",
+    y = "Child (A3)",
+    fill = "Count"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+    axis.title = element_text(size = 20, face = "bold"),
+    axis.text = element_text(size = 20, face = "bold"),
+    panel.grid.major = element_line(color = "grey80"),
+    panel.grid.minor = element_line(color = "grey90"),
+    panel.background = element_rect(fill = "white")
+  ) +
+  coord_fixed(ratio = 1)
+  ```
 
   
 
