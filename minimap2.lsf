@@ -5,4 +5,4 @@
 #BSUB -e minimap5_Error.txt
 #BSUB -n 24
 
-minimap2 -t 24 -a meph-pri-rc.mmi P3.3-omega.fastq.gz >P3.3-rcomega.sam 
+minimap2 -t 24 -a meph-pri.mmi P3.3.fastq.gz >P3.3.sam 
