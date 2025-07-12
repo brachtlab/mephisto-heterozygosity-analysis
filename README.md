@@ -78,7 +78,7 @@ The text file FILENAME.vcf_columns2.txt_snps_only.txt is the input for plotting 
      ```bash
      ./compare-text-files.py FILENAME1.vcf_columns2.txt_snps_only.txt FILENAME2.vcf_columns2.txt_snps_only.txt
      ```
-- **Step 1.7.2**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures, using the geom_hex() command within ggplot2.
+- **Step 1.7.2**: **Plot Scatterplots, part 2**: Using ggplot2 in R to visualize 'ALT-Fraction Alternative Variant: Parent vs. Child' figures, using the geom_hex() command within ggplot2. The two columns to plot are columns 7 (FILENAME1 alternative allele frequency) and 17 (FILENAME2 alternative allele frequency).
 
   ```
   a3p <- ggplot(a3   , aes(x = V7, y = V17)) +
